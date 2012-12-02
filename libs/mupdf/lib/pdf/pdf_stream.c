@@ -101,18 +101,18 @@ build_filter(fz_stream *chain, pdf_document * xref, pdf_obj * f, pdf_obj * p, in
 				bi1 ? pdf_to_bool(bi1) : 0);
 	}
 
-	else if (!strcmp(s, "DCTDecode") || !strcmp(s, "DCT"))
-	{
-		pdf_obj *ct = pdf_dict_gets(p, "ColorTransform");
-		if (params)
-		{
-			/* We will shortstop here */
-			params->type = PDF_IMAGE_JPEG;
-			params->u.jpeg.ct = (ct ? pdf_to_int(ct) : -1);
-			return chain;
-		}
-		return fz_open_dctd(chain, ct ? pdf_to_int(ct) : -1);
-	}
+//	else if (!strcmp(s, "DCTDecode") || !strcmp(s, "DCT"))
+//	{
+//		pdf_obj *ct = pdf_dict_gets(p, "ColorTransform");
+//		if (params)
+//		{
+//			/* We will shortstop here */
+//			params->type = PDF_IMAGE_JPEG;
+//			params->u.jpeg.ct = (ct ? pdf_to_int(ct) : -1);
+//			return chain;
+//		}
+//		return fz_open_dctd(chain, ct ? pdf_to_int(ct) : -1);
+//	}
 
 	else if (!strcmp(s, "RunLengthDecode") || !strcmp(s, "RL"))
 	{
@@ -378,10 +378,10 @@ pdf_open_image_decomp_stream(fz_context *ctx, fz_buffer *buffer, pdf_image_param
 				params->u.fax.rows,
 				params->u.fax.eob,
 				params->u.fax.bi1);
-	case PDF_IMAGE_JPEG:
-		if (*factor > 8)
-			*factor = 8;
-		return fz_open_resized_dctd(chain, params->u.jpeg.ct, *factor);
+//	case PDF_IMAGE_JPEG:
+//		if (*factor > 8)
+//			*factor = 8;
+//		return fz_open_resized_dctd(chain, params->u.jpeg.ct, *factor);
 	case PDF_IMAGE_RLD:
 		*factor = 1;
 		return fz_open_rld(chain);

@@ -179,13 +179,13 @@ fz_decode_tiff_fax(struct tiff *tiff, int comp, fz_stream *chain, unsigned char 
 	fz_close(stm);
 }
 
-static void
-fz_decode_tiff_jpeg(struct tiff *tiff, fz_stream *chain, unsigned char *wp, int wlen)
-{
-	fz_stream *stm = fz_open_dctd(chain, -1);
-	fz_read(stm, wp, wlen);
-	fz_close(stm);
-}
+//static void
+//fz_decode_tiff_jpeg(struct tiff *tiff, fz_stream *chain, unsigned char *wp, int wlen)
+//{
+//	fz_stream *stm = fz_open_dctd(chain, -1);
+//	fz_read(stm, wp, wlen);
+//	fz_close(stm);
+//}
 
 static inline int getcomp(unsigned char *line, int x, int bpc)
 {
@@ -437,9 +437,9 @@ fz_decode_tiff_strips(struct tiff *tiff)
 		case 6:
 			fz_throw(tiff->ctx, "deprecated JPEG in TIFF compression not supported");
 			break;
-		case 7:
-			fz_decode_tiff_jpeg(tiff, stm, wp, wlen);
-			break;
+//		case 7:
+//			fz_decode_tiff_jpeg(tiff, stm, wp, wlen);
+//			break;
 		case 8:
 			fz_decode_tiff_flate(tiff, stm, wp, wlen);
 			break;
