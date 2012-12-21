@@ -7,8 +7,15 @@ extern "C"
 
 extern fz_device *fz_new_ofpath_device(fz_context *ctx, vector< ofPtr<ofPath> > &paths);
 
+ofxPDF::~ofxPDF()
+{
+	close();
+}
+
 void ofxPDF::loadPDF(string path, int pagenumber)
 {
+	close();
+	
 	path = ofToDataPath(path);
 	
 	fz_context *ctx = fz_new_context(NULL, NULL, FZ_STORE_UNLIMITED);
@@ -29,6 +36,11 @@ void ofxPDF::loadPDF(string path, int pagenumber)
 	fz_free_page(doc, page);
 	fz_close_document(doc);
 	fz_free_context(ctx);
+}
+
+void ofxPDF::close()
+{
+	paths.clear();
 }
 
 void ofxPDF::draw()

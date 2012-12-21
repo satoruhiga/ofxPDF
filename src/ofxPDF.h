@@ -6,8 +6,12 @@ class ofxPDF
 {
 public:
 	
+	virtual ~ofxPDF();
+	
 	void load(string path, int pagenumber = 1) { loadPDF(path, pagenumber); }
 	void loadPDF(string path, int pagenumber = 1);
+	
+	void close();
 	
 	inline float getWidth() { return width; }
 	inline float getHeight() { return height; }
